@@ -1,5 +1,3 @@
-package com.lh.javaboocampwork.week1;
-
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
