@@ -1,0 +1,62 @@
+package com.lh.work;
+
+import com.lh.work.entity.Klass;
+import com.lh.work.entity.Student;
+import com.lh.work.service.ISchool;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+/**
+ * @Author: nanCheng
+ * @Date: 2021/09/05
+ */
+public class BeanAssemblyDemo {
+
+    public static void main(String[] args) {
+
+        // 通过 XML 中进行显式配置
+        ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+//        Student student123 = context.getBean(Student.class);
+
+        Student student123 = (Student) context.getBean("student123");
+        System.out.println(student123.toString());
+
+        student123.print();
+
+        Student student100 = (Student) context.getBean("student100");
+        System.out.println(student100.toString());
+
+        student100.print();
+
+        Klass class1 = context.getBean(Klass.class);
+        System.out.println(class1);
+        System.out.println("Klass对象AOP代理后的实际类型："+class1.getClass());
+        System.out.println("Klass对象AOP代理后的实际类型是否是Klass子类："+(class1 instanceof Klass));
+
+        // spring从两个角度实现自动化装配：组件扫描和自动装配
+        ISchool school = context.getBean(ISchool.class);
+        System.out.println(school);
+        System.out.println("ISchool接口的对象AOP代理后的实际类型："+school.getClass());
+
+
+        ISchool school1 = context.getBean(ISchool.class);
+        System.out.println(school1);
+        System.out.println("ISchool接口的对象AOP代理后的实际类型："+school1.getClass());
+
+        school1.ding();
+
+        class1.dong();
+
+        System.out.println("   context.getBeanDefinitionNames() ===>> "+ String.join(",", context.getBeanDefinitionNames()));
+
+        Student s101 = (Student) context.getBean("s101");
+        if (s101 != null) {
+            System.out.println(s101);
+        }
+        Student s102 = (Student) context.getBean("s102");
+        if (s102 != null) {
+            System.out.println(s102);
+        }
+    }
+
+}
