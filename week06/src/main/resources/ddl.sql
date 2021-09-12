@@ -41,6 +41,8 @@ CREATE TABLE `main_order` (
   `discounts_fee` bigint(20) DEFAULT NULL COMMENT '优惠金额,单位分',
   `actually_fee` bigint(20) DEFAULT NULL COMMENT '实付金额,单位分',
   `order_status` tinyint(2) DEFAULT NULL COMMENT '订单状态',
+  `pay_type` varchar(16) DEFAULT NULL COMMENT '支付方式',
+  `pay_serial_num` varchar(64) DEFAULT NULL COMMENT '支付流水号',
   `pay_status` tinyint(2) DEFAULT NULL COMMENT '支付状态',
   `pay_time` timestamp NULL DEFAULT NULL COMMENT '支付时间',
   `logistics_status` tinyint(2) DEFAULT NULL COMMENT '物流状态',
