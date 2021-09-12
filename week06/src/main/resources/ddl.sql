@@ -5,6 +5,8 @@ CREATE TABLE `user` (
   `user_pic` varchar(512) DEFAULT NULL COMMENT '用户头像',
   `password` varchar(32) DEFAULT NULL COMMENT '加密密码',
   `def_addr` json DEFAULT NULL COMMENT '默认地址',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_user_account` (`user_account`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户表';
@@ -13,13 +15,18 @@ CREATE TABLE `item` (
   `item_code` varchar(32) DEFAULT NULL COMMENT '商品编码',
   `item_name` varchar(64) NOT NULL DEFAULT '' COMMENT '商品名称',
   `item_main_pic` varchar(512) DEFAULT NULL COMMENT '商品主图',
+  `sell_num` bigint(20) DEFAULT NULL COMMENT '销售数量',
+  `remnant_inventory` bigint(20) DEFAULT NULL COMMENT '剩余库存',
   `fee` bigint(20) DEFAULT NULL COMMENT '商品价格,单位分',
   `discounts_fee` bigint(20) DEFAULT NULL COMMENT '商品优惠金额,单位分',
+  `discounts_expiration_time` timestamp NULL DEFAULT NULL COMMENT '折扣到期时间',
   `category_1` varchar(32) DEFAULT NULL COMMENT '一级类目',
   `category_2` varchar(32) DEFAULT NULL COMMENT '二级类目',
   `category_3` varchar(32) DEFAULT NULL COMMENT '三级类目',
   `other_attributes` json DEFAULT NULL COMMENT '其它属性',
   `item_detail` varchar(4096) NOT NULL DEFAULT '' COMMENT '商品详情',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `index_item_code` (`item_code`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商品表';
@@ -35,8 +42,11 @@ CREATE TABLE `main_order` (
   `actually_fee` bigint(20) DEFAULT NULL COMMENT '实付金额,单位分',
   `order_status` tinyint(2) DEFAULT NULL COMMENT '订单状态',
   `pay_status` tinyint(2) DEFAULT NULL COMMENT '支付状态',
+  `pay_time` timestamp NULL DEFAULT NULL COMMENT '支付时间',
   `logistics_status` tinyint(2) DEFAULT NULL COMMENT '物流状态',
   `shipping_addr` json DEFAULT NULL COMMENT '收货地址',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `index_order_num` (`order_num`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='主订单表';
@@ -59,6 +69,8 @@ CREATE TABLE `sub_order` (
   `logistics_status` tinyint(2) DEFAULT NULL COMMENT '物流状态',
   `logistics_num` varchar(32) DEFAULT NULL COMMENT '物流单号',
   `shipping_addr` json DEFAULT NULL COMMENT '收货地址',
+  `create_time` timestamp NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   KEY `index_order_num` (`order_num`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='子订单表';
